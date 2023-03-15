@@ -1,0 +1,16 @@
+.Inputs{
+    width: 330px;
+    height: 50px;
+    margin-bottom: 22px;
+    -moz-box-shadow:0 12 16px powderblue; -webkit-box-shadow:12px 0 16px powderblue; box-shadow:0 0 16px powderblue;
+}
+
+@media screen and (max-width:440px) {
+    .sae{}
+}
+
+@media screen and (max-width:440px) {
+    .Inputs{
+        width: 314px;
+    }
+}
