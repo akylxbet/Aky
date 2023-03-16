@@ -15,7 +15,7 @@ const Footer = () => {
         
         <Link to="/Registr">
         <motion.span
-                    variants={fadeIn("left",0.3)} 
+                    variants={fadeIn("left",0.5)} 
                     initial="hidden" 
                     whileInView={'show'} 
                     viewport={{once: false, amount:0.4}}
@@ -24,7 +24,7 @@ const Footer = () => {
                      
                      sequence={[
                         "Привет!" ,
-                        2400,
+                        3000,
                         "Как насчёт того, чтобы зарегистрироваться? " 
                      ]}
                      speed={40}

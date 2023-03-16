@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { fadeIn } from '../../variants';
-import React from 'react';
+import {React, useState} from 'react';
 import MyInput from '../../Components/MUI/MyInput/MyInput';
 import { UserOutlined, MailOutlined, LockOutlined } from "@ant-design/icons";
 import s from "./Auth.module.scss"
@@ -8,6 +8,34 @@ import MyButton from '../../Components/MUI/MyButton/MyButton';
 import { Link } from 'react-router-dom';
 import { TypeAnimation } from 'react-type-animation';
 const Auth = () => {
+
+    const [userLogin, setUserLogin] = useState({
+		email: '',
+		password: ''
+	})
+	const [errorMessage, setErrorMessage] = useState('')
+
+	
+
+	
+	
+
+	const LOGIN_URL = ''
+
+	const login = async () => {
+		if (userLogin.email.length > 1 || userLogin.password.length > 1) {
+			try {
+			
+				const { data } = await axios.post(LOGIN_URL, userLogin);
+				console.log(data);
+				localStorage.setItem('token', JSON.stringify(data.token));
+				
+			} catch (error) {
+				setErrorMessage(error.response.data.error);
+			}
+			setLoading(false)
+		}
+
     return (
         
         
@@ -37,8 +65,8 @@ const Auth = () => {
                 />
                 
                 <MyButton>Войти</MyButton>
-                <Link to='/Registr'>  <motion.span
-                    variants={fadeIn("left",0.3)} 
+                <Link to='/Register'>  <motion.span
+                    variants={fadeIn("left",0.5)} 
                     initial="hidden" 
                     whileInView={'show'} 
                     viewport={{once: false, amount:0.7}}
@@ -46,11 +74,11 @@ const Auth = () => {
                     <TypeAnimation 
                      
                      sequence={[
-                        "Нет аккаунта?" ,
-                        2400,
-                        "Зарегистрируйся" 
+                        "Забыл пароль?" ,
+                        2700,
+                        "Восстанови пароль! " 
                      ]}
-                     speed={40}
+                     speed={20}
                      
                      />
                     </motion.span></Link>
@@ -58,6 +86,6 @@ const Auth = () => {
             
         </div>
     );
-};
+}};
 
 export default Auth;
