@@ -10,7 +10,7 @@ import logo from '../../assets/photo1678988458.png'
 const Header = () => {
     return (
         <motion.header className={s.header}
-        variants={fadeIn("right",0.5)} 
+        variants={fadeIn("up",1.4)} 
         initial="hidden" 
         whileInView={'show'} 
         viewport={{once: false, amount:0.7}}

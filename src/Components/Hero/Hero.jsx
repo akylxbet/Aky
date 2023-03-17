@@ -6,9 +6,16 @@ import { motion } from 'framer-motion';
 const Hero = () => {
     return (
         <section className={s.Hero}>
-            <div className={s.container}>
-                <div className={s.left}>
-                    <motion.h1 
+            <motion.div className={s.container}
+            variants={fadeIn("up",0.3)} 
+            initial="hidden" 
+            whileInView={'show'} 
+            viewport={{once: false, amount:0.7}}
+            >
+                <div className={s.content}>
+                <div className={s.center}>
+                <motion.h1 
+                    className={s.intro}
                     variants={fadeIn("right",0.3)} 
                     initial="hidden" 
                     whileInView={'show'} 
@@ -33,11 +40,47 @@ const Hero = () => {
                      repeat={Infinity}
                      />
                     </motion.span>
-                </div>
+                    </div>
+                    <div className={s.lower_center}>
+                <motion.div className={s.left}
+                 variants={fadeIn("right",0.3)} 
+                 initial="hidden" 
+                 whileInView={'show'} 
+                 viewport={{once: false, amount:0.7}}>
+                    <h1>
+                    <TypeAnimation 
+                     
+                     sequence={[
+                        "Для чего создавался сайт?" ,
+                        2400
+                       
+                     ]}
+                     speed={10}
+                     repeat={Infinity}
+                     />                        
+                    </h1>
+                    <p>Здесь создавался проект для хакатона от нашей <br />
+                    
+                    <a href="https://it-academy.kg/">
+                    <TypeAnimation 
+                     
+                     sequence={[
+                        " ItAcademy.kg" ,
+                        2400
+                       
+                     ]}
+                     speed={10}
+                     repeat={Infinity}
+                     /></a>
+                    </p>
+                    <p>Здесь мы отображаем различные отчёты</p>
+                </motion.div>
                 <div className={s.right}>
 
                 </div>
+                </div>
             </div>
+            </motion.div>
         </section>
     );
 };

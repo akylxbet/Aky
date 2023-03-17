@@ -4,41 +4,80 @@ import { motion } from 'framer-motion';
 import { fadeIn } from '../../variants';
 import MyInput from '../../Components/MUI/MyInput/MyInput';
 import { UserOutlined, MailOutlined, LockOutlined } from "@ant-design/icons";
+import {message} from 'antd'
 import MyButton from '../../Components/MUI/MyButton/MyButton';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { TypeAnimation } from 'react-type-animation';
+import axios from 'axios';
+import { AUTH, BASE_URL } from '../../Api';
+// import { message } from 'antd';
 const Register = () => {
 
-    const [error, setError] = useState('');
-	
-	const [userData, setUserData] = useState({
-		username: '',
-		email: '',
-		password: '',
-	})
-
-
-
-
-	const BASE_URL = ''
-
-	const postDataUser = async () => {
-		try {
-			setLoading(true)
-			await axios
-				.post(BASE_URL + "/register", userData)
-				.then((res) => localStorage.setItem('token', JSON.stringify(res.data.token)), console.log(localStorage))
-			setUserData({ username: '', email: '', password: '' });
-			window.location.reload();
-		} catch (error) {
-			setError(error.response.data.error)
-		}
-		setLoading(false);
-	}
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
+  
+    const navigate = useNavigate();
+    const handleAuth = () => {
+      navigate("/Auth");
+    };
+  
+    // const [messageApi, contextHolder] = message.useMessage();
+    // const error = () => {
+    //   messageApi.open({
+    //     type: 'error',
+    //     content: 'This username is already taked',
+    //     style: {
+    //       marginTop: '100px',
+    //     }
+    //   });
+    // };
+  
+    const AuthUsers = async () => {
+      try {
+        const response = await axios.post(AUTH, {
+          username,
+          password,
+        });
+        if (response.status === 200 || 201) {
+          const access = response.data.access;
+          const refresh = response.data.refresh;
+  
+          localStorage.setItem("access", access);
+          localStorage.setItem("refresh", refresh);
+          navigate("/");
+        } else if (!response.status) {
+          console.log("error");
+        }
+      } catch {
+        console.log('error')
+      }
+      }
+    
+  
+    const postUsers = async (e) => {
+      e.preventDefault();
+      try {
+        const response = await axios.post(BASE_URL, {
+          username,
+          password,
+          email,
+        });
+        if (response.status === 200 || 201) {
+          // console.log("Success:", response.data);
+          // navigate("/auth");
+          AuthUsers()
+        }
+      } catch (e) {
+        console.log("Ошибка какая-то")
+      }
+    };
+  
 
 
     return (
-        <motion.div className={s.container}
+        <motion.form onSubmit={postUsers} className={s.container}
+            
             variants={fadeIn("up",0.5  )} 
             initial="hidden" 
             whileInView={'show'} 
@@ -48,50 +87,30 @@ const Register = () => {
              <MyInput type="name"
                  pc="Имя"
                  icon={<UserOutlined/>}
-                 // value={login.email}
-                 // onChange={(e)=>{
-                 //     setLogin({...login, email:e.target.value})
-                 // }}
+                 value={username}
+                 onChange={(e)=> {setUsername(e.target.value)}}
              />
              <MyInput type="Email"
                  pc="Email"
                  icon={<MailOutlined/>}
-                 // value={login.passwrod}
-                 // onChange={(e)=>{
-                 //     setLogin({...login, password:e.target.value})
-                 // }}
+                 value={email} 
+                 onChange={(e)=> {setEmail(e.target.value)}}
              />
                <MyInput type="password"
                  pc="Пароль"
                  icon={<LockOutlined/>}
-                 // value={login.passwrod}
-                 // onChange={(e)=>{
-                 //     setLogin({...login, password:e.target.value})
-                 // }}
+                 value={password}
+                 onChange={(e)=> {setPassword(e.target.value)}}
              />
 
 
-             <MyButton>Войти</MyButton>
-             {/* <Link to='/Registr'>  <motion.span
-                 variants={fadeIn("left",0.3)} 
-                 initial="hidden" 
-                 whileInView={'show'} 
-                 viewport={{once: false, amount:0.7}}
-                 >
-                 <TypeAnimation 
-                  
-                  sequence={[
-                     "Нет аккаунта?" ,
-                     2400,
-                     "Зарегистрируйся" 
-                  ]}
-                  speed={40}
-                  
-                  />
-                 </motion.span></Link> */}
-         </motion.div>  
+             <MyButton onClick = {handleAuth}
+             type='submit'
+			>Зарегистрироваться
+              </MyButton>
+           
+         </motion.form>  
          
     );
-};
-
+}
 export default Register;

@@ -1,0 +1,58 @@
+.container{
+    width: 400px;
+    height: 300px;
+    margin: 0 auto;
+    margin-top: 167px;
+    margin-bottom: 70px;
+    background:none;
+    color: blanchedalmond;
+    -moz-text-shadow:0 0 13px ; -webkit-text-shadow:0 0 23px rgb(136, 25, 130); text-shadow:0 0 23px rgb(136, 25, 130);
+    border: 1px solid powderblue;
+    -moz-box-shadow:0 12 16px powderblue; -webkit-box-shadow:12px 0 16px powderblue; box-shadow:0 0 16px powderblue; 
+    border-radius: 5px;
+    padding: 30px 35px 30px 35px;
+    align-items: center;
+    text-align: center;
+    .Inputs{
+        margin: 0;
+        padding: 0;
+    }
+    h1{
+        margin: 0 auto;
+        margin-bottom: 25px;
+    }
+    .errorMes {
+        height: 50px;
+        width: 100%;
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 160%;
+        margin: 0 auto;
+        color: #f11515;
+        padding-top: 25px;
+        margin-bottom: 25px;
+    }
+    button{
+        width: 330px;
+        height: 50px;
+        font-size: 22px;
+        margin-bottom: 12px;
+    }
+    
+}
+
+@media screen and (max-width:440px) {
+    .Recovery{
+
+    }
+}
+
+@media screen and (max-width:440px) {
+    .container{
+        width: 374px;
+        margin-top: 0;
+        margin-bottom: 278px;
+    }
+}
